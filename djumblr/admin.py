@@ -1,7 +1,8 @@
 from django.contrib import admin
 
-from djumblr.models import Regular, Photo, Quote, Link, Conversation, Video, Audio
+from djumblr.models import Regular, Photo, Quote, Link, Conversation, Video, Audio, TumbleItem
 
+admin.site.register(TumbleItem)
 admin.site.register(Regular)
 admin.site.register(Photo)
 admin.site.register(Quote)
