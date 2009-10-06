@@ -150,8 +150,6 @@ class Command(NoArgsCommand):
                        }
 
         '''
-
         for username, tumblr_info in settings.TUMBLR_USERS.iteritems():
             user = User.objects.get(username__exact=username)
-
-            populate_models(tumblr_info['tumblr_user'], user)
+            self.populate_models(tumblr_info['tumblr_user'], user)

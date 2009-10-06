@@ -1,5 +1,4 @@
 import datetime
-
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -41,7 +40,13 @@ class TumbleItem(models.Model):
         if(not self.content_type):
             self.content_type = ContentType.objects.get_for_model(self.__class__)
         self.save_base()
-        tumble_save.send(sender=TumbleItem, instance=self, created=created)
+        #tumble_save.send(sender=TumbleItem, instance=self, created=created)
+
+    def __unicode__(self):
+        if self.content_type:
+            return u"TumbleItem (%s)" % (self.content_type)
+        else:
+            return u"TumbleItem"
 
     def shared_display(self):
         templates = [
@@ -65,7 +70,7 @@ class Regular(TumbleItem):
     title = models.CharField(max_length=250, blank=True)
     body = models.TextField()
 
-    class Meta: #(TumbleItem.Meta):
+    class Meta:
         ordering = ['-pub_date']
         verbose_name_plural = "Regular"
 
@@ -79,9 +84,9 @@ class Regular(TumbleItem):
 
     def __unicode__(self):
         if self.title:
-            return "%s (regular)" % self.title
+            return u"%s (regular)" % self.title
         else:
-            return "Regular"
+            return u"Regular"
 
 
 class Photo(TumbleItem):
@@ -102,7 +107,7 @@ class Photo(TumbleItem):
         super(Photo, self).save()
 
     def __unicode__(self):
-        return "Photo"
+        return u"Photo"
 
 
 class Quote(TumbleItem):
@@ -118,7 +123,7 @@ class Quote(TumbleItem):
         super(Quote, self).save()
 
     def __unicode__(self):
-        return "Quote"
+        return u"Quote"
 
 
 class Link(TumbleItem):
@@ -136,9 +141,9 @@ class Link(TumbleItem):
 
     def __unicode__(self):
         if self.name:
-            return "%s (link)" % self.name
+            return u"%s (link)" % self.name
         else:
-            return "Link"
+            return u"Link"
 
 
 class Conversation(TumbleItem):
@@ -164,9 +169,9 @@ class Conversation(TumbleItem):
 
     def __unicode__(self):
         if self.title:
-            return "%s (Conversation)" % self.title
+            return u"%s (Conversation)" % self.title
         else:
-            return "Conversation"
+            return u"Conversation"
 
 
 class ConversationLine(models.Model):
@@ -195,7 +200,7 @@ class Video(TumbleItem):
         super(Video, self).save()
 
     def __unicode__(self):
-        return "Video"
+        return u"Video"
 
 
 class Audio(TumbleItem):
@@ -216,4 +221,4 @@ class Audio(TumbleItem):
         super(Audio, self).save()
 
     def __unicode__(self):
-        return "Audio"
+        return u"Audio"
