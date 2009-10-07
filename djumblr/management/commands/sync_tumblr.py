@@ -1,27 +1,33 @@
 import datetime
 import logging
-
+import optparse
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from djumblr.models import Regular, Photo, Quote, Link, Conversation, Audio, Video, ConversationLine, TumbleItem
 from tumblr import Api
 
 
-LOG_LEVEL = logging.DEBUG
-#LOG_LEVEL = logging.WARN
-logging.basicConfig(
-    level=LOG_LEVEL,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
-
-
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = ""
+    option_list = BaseCommand.option_list + (
+        optparse.make_option(
+            "-u", "--user", 
+            dest="user", 
+            action="store", 
+            help="Sync tumblr with a given username"
+        ),
+    )
 
-    def __init__(self, *args, **kwargs):
-        super(Command, self).__init__(*args, **kwargs)
+    def handle(self, *args, **options):
+        level = {
+            '0': logging.WARN, 
+            '1': logging.INFO, 
+            '2': logging.DEBUG
+        }[options.get('verbosity', '0')]
+        logging.basicConfig(level=level, format="%(name)s: %(levelname)s: %(message)s")
         self.log = logging.getLogger('djumblr.management.commands.sync_tumblr')
+        self.populate_all()
 
     def handle_noargs(self, **options):
         self.populate_all()
@@ -38,7 +44,7 @@ class Command(NoArgsCommand):
             tumblr_id = tumbl['id']
             pub_date = datetime.datetime.strptime(tumbl['date-gmt'], '%Y-%m-%d %H:%M:%S %Z')
 
-            self.log.debug('%s' % (tumblr_id))
+            self.log.debug('%s (%s)' % (tumblr_id, tumbl['type']))
 
             try:
                 TumbleItem.objects.get(tumblr_id=tumblr_id)
@@ -114,8 +120,7 @@ class Command(NoArgsCommand):
 
                     # TODO: Raise error.
                     else:
-                        print "ERROR!", tumbl
-                        return ''
+                        self.log.error('Type does not exist: %s' % (tumbl['type']))
 
                     m.save()
 
