@@ -25,7 +25,7 @@ def display_tumbl(object, template):
 
 
 class TumbleItem(models.Model):
-    tumblr_id = models.IntegerField(editable=False, null=True)
+    tumblr_id = models.CharField(max_length=64, editable=False, null=True)
     pub_date = models.DateTimeField(default=datetime.datetime.now)
     user = models.ForeignKey(User)
 
@@ -175,7 +175,7 @@ class Conversation(TumbleItem):
 
 
 class ConversationLine(models.Model):
-    line = models.CharField(max_length=250)
+    line = models.CharField(max_length=1000)
     conversation = models.ForeignKey(Conversation)
 
     class Meta:
