@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="entry">
+	{% for object in object_list %}
+		<p>{{ object.shared_display }}</p>
+	{% endfor %}
+</div>
+{% endblock %}
