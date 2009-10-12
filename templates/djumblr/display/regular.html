@@ -1,8 +1,8 @@
-<div class="title type_regular">
+<div class="post_{{ object.id }} {{ item.content_type.name }}">
 	{% if object.title %}
 	<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
 	{% else %}
 	<h2><a href="{{ object.get_absolute_url }}">No title</a></h2>
 	{% endif %}
+  <p>{{ object.body|safe }}</p>
 </div>
-<p>{{ object.body|safe }}</p>
