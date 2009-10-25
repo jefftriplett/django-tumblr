@@ -1,6 +1,7 @@
 import datetime
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.template import loader, Context
@@ -35,11 +36,11 @@ class TumbleItem(models.Model):
     class Meta:
         ordering = ['-pub_date']
 
-    def save(self):
+    def save(self, **kwargs):
         created = True if self.pk else False
         if(not self.content_type):
             self.content_type = ContentType.objects.get_for_model(self.__class__)
-        self.save_base()
+        self.save_base(**kwargs)
         #tumble_save.send(sender=TumbleItem, instance=self, created=created)
 
     def __unicode__(self):
@@ -57,13 +58,12 @@ class TumbleItem(models.Model):
         return display_tumbl(self, template.name)
 
     def get_absolute_url(self):
-        view_name = 'djumblr_%s_detail' % (self.content_type)
+        view_name = 'djumblr_detail' % (self.content_type)
         return (view_name, (), { 'year': self.pub_date.strftime("%Y"),
                                  'month': self.pub_date.strftime("%b").lower(),
                                  'day': self.pub_date.strftime("%d"),
                                  'object_id': self.tumblr_id })
     get_absolute_url = models.permalink(get_absolute_url)
-
 
 
 class Regular(TumbleItem):
