@@ -1,13 +1,11 @@
-<div class="post_{{ object.id }} {{ item.content_type.name }}">
-	{% if object.title %}
-	<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
-	{% else %}
-	<h2><a href="{{ object.get_absolute_url }}">Photo</a></h2>
-	{% endif %}
-  {% if object.click_through_url %}
-  <p><a href="{{ object.click_through_url }}"><img src="{{ object.source }}"></a></p>
-  {% else %}
-  <p><img src="{{ object.source }}"></p>
-  {% endif %}
-  <p>{{ object.caption|safe }}</p>
-</div>
+{% if object.photo.title %}
+<h2><a href="{{ object.photo.get_absolute_url }}">{{ object.photo.title }}</a></h2>
+{% else %}
+<h2><a href="{{ object.photo.get_absolute_url }}">Photo</a></h2>
+{% endif %}
+{% if object.click_through_url %}
+<p><a href="{{ object.photo.click_through_url }}"><img src="{{ object.photo.source }}"></a></p>
+{% else %}
+<p><img src="{{ object.photo.source }}"></p>
+{% endif %}
+<div>{{ object.photo.caption|safe }}</div>

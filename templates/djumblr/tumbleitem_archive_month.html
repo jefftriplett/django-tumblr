@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load djumblr %}
 <div class="entry">
 	{% for object in object_list %}
-		<p>{{ object.shared_display }}</p>
+		<p>{{ object|djumbr }}</p>
 	{% endfor %}
 </div>
 {% endblock %}

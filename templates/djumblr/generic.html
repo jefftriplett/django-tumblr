@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="entry">
-	{% for object in object_list %}
-		<p>{{ object.shared_display }}</p>
-	{% endfor %}
+{% load djumblr %}
+<div class="posts">
+{% for object in object_list %}
+<div id="post_{{ object.id }}" class="{{ object.content_type.name }}">
+{% tumblr_render object %}
+</div>
+{% endfor %}
 </div>
 {% endblock %}

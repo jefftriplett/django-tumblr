@@ -1,9 +1,7 @@
-<div class="post_{{ object.id }} {{ item.content_type.name }}">
-  <h3>todo: conversation</h3>
-  {% if object.title %}
-  <h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
-  {% else %}
-  <h2><a href="{{ object.get_absolute_url }}">No title</a></h2>
-  {% endif %}
-  <p>{{ object.body|safe }}</p>
-</div>
+<h3>todo: conversation</h3>
+{% if object.conversation.title %}
+<h2><a href="{{ object.conversation.get_absolute_url }}">{{ object.conversation.title }}</a></h2>
+{% else %}
+<h2><a href="{{ object.conversation.get_absolute_url }}">No title</a></h2>
+{% endif %}
+<div>{{ object.conversation.body|safe }}</div>

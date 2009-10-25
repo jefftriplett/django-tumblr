@@ -1,9 +1,7 @@
-<div class="post_{{ object.id }} {{ item.content_type.name }}">
-	{% if object.title %}
-	<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
-	{% else %}
-	<h2><a href="{{ object.get_absolute_url }}">Video</a></h2>
-	{% endif %}
-  <p>{{ object.embed|safe }}</p>
-  <p>{{ object.caption|safe }}</p>
-</div>
+{% if object.video.title %}
+<h2><a href="{{ object.video.get_absolute_url }}">{{ object.video.title }}</a></h2>
+{% else %}
+<h2><a href="{{ object.video.get_absolute_url }}">Video</a></h2>
+{% endif %}
+<div>{{ object.video.embed|safe }}</div>
+<div>{{ object.video.caption|safe }}</div>
