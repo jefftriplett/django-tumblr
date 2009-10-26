@@ -53,69 +53,44 @@ class Command(BaseCommand):
                 try:
                     # 'Regular' objects.
                     if tumbl['type'] == "regular":
-                        if tumbl['regular-title']:
-                            title = tumbl['regular-title']
-                        else:
-                            title = ""
+                        title = tumbl.get('regular-title', '')
                         body = tumbl['regular-body']
                         m = Regular(tumblr_id=tumblr_id, pub_date=pub_date, user=user, title=title, body=body)
 
                     # 'Photo' objects.
                     elif tumbl['type'] == "photo":
                         source = tumbl['photo-url-250']
-                        if tumbl['photo-caption']:
-                            caption = tumbl['photo-caption']
-                        else:
-                            caption = ""
+                        caption = tumbl.get('photo-caption', '')
                         m = Photo(tumblr_id=tumblr_id, pub_date=pub_date, user=user, source=source, caption=caption)
 
                     # 'Quote' objects.
                     elif tumbl['type'] == "quote":
-                        quote = tumbl['quote-text']
-                        if tumbl['quote-source']:
-                            source = tumbl['quote-source']
-                        else:
-                            source = ""
+                        quote = tumbl.get('quote-text', '')
                         m = Quote(tumblr_id=tumblr_id, pub_date=pub_date, user=user, quote=quote, source=source)
 
                     # 'Link' objects.
                     elif tumbl['type'] == "link":
-                        if tumbl['link-text']:
-                            name = tumbl['link-text']
-                        else:
-                            name = ""
+                        name = tumbl.get('link-text', '')
                         url = tumbl['link-url']
-                        if tumbl['link-description']:
-                            description = tumbl['link-description']
-                        else:
-                            description = ""
+                        description = tumbl.get('link-description', '')
                         m = Link(tumblr_id=tumblr_id, pub_date=pub_date, user=user, name=name, url=url, description=description)
 
                     # 'Conversation' objects.
                     elif tumbl['type'] == "conversation":
-                        if tumbl['conversation-title']:
-                            title = tumbl['conversation-title']
-                        else:
-                            title = ""
+                        title = tumbl.get('conversation-title', '')
                         m = Conversation(tumblr_id=tumblr_id, pub_date=pub_date, user=user, title=title, conversation_text=tumbl['conversation-text'])
                         #m.save()
 
                     # 'Video' objects.
                     elif tumbl['type'] == "video":
                         embed = tumbl['video-player']
-                        if tumbl['video-caption']:
-                            caption = tumbl['video-caption']
-                        else:
-                            caption = ""
+                        caption = tumbl.get('video-caption', '')
                         m = Video(tumblr_id=tumblr_id, pub_date=pub_date, user=user, embed=embed, caption=caption)
 
                     # 'Audio' objects.
                     elif tumbl['type'] == "audio":
                         embed = tumbl['audio-player']
-                        if tumbl['audio-caption']:
-                            caption = tumbl['audio-caption']
-                        else:
-                            caption = ""
+                        caption = tumbl.get('audio-caption', '')
                         m = Audio(tumblr_id=tumblr_id, pub_date=pub_date, user=user, embed=embed, caption=caption)
 
                     # TODO: Raise error.
