@@ -67,6 +67,7 @@ class Command(BaseCommand):
                     # 'Quote' objects.
                     elif tumbl['type'] == "quote":
                         quote = tumbl.get('quote-text', '')
+                        source = tumbl.get('quote-source', '')
                         m = Quote(tumblr_id=tumblr_id, pub_date=pub_date, user=user, quote=quote, source=source)
 
                     # 'Link' objects.
@@ -99,8 +100,8 @@ class Command(BaseCommand):
                         self.log.error('Type does not exist: %s' % (tumbl['type']))
 
                     if tags:
-                        print m.tumblr_id
                         m.tags = ' '.join(tags)
+
                     m.save()
 
                 except Exception, e:
