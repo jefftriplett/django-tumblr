@@ -32,6 +32,8 @@ class TumbleItem(models.Model):
 
     # this is for magic later and makes doing lookups both easier and lazier.
     content_type = models.ForeignKey(ContentType, editable=False, null=True)
+    content_id = models.IntegerField(db_index=True, editable=False, null=True)
+    object = generic.GenericForeignKey(ct_field="content_type", fk_field="content_id")
 
     class Meta:
         ordering = ['-pub_date']
@@ -82,6 +84,10 @@ class Regular(TumbleItem):
                 self.tumblr_id = post['id']
         super(Regular, self).save()
 
+        if not self.content_id:
+            self.content_id = self.pk
+            super(Regular, self).save()
+
     def __unicode__(self):
         if self.title:
             return u"%s (regular)" % self.title
@@ -105,6 +111,10 @@ class Photo(TumbleItem):
                     post = api.write_photo(data=open(self.photo), caption=self.caption, click_through_url=self.click_through_url)
                 self.tumblr_id = post['id']
         super(Photo, self).save()
+
+        if not self.content_id:
+            self.content_id = self.pk
+            super(Photo, self).save()
 
     def __unicode__(self):
         return u"Photo"
@@ -139,6 +149,10 @@ class Link(TumbleItem):
                 self.tumblr_id = post['id']
         super(Link, self).save()
 
+        if not self.content_id:
+            self.content_id = self.pk
+            super(Link, self).save()
+
     def __unicode__(self):
         if self.name:
             return u"%s (link)" % self.name
@@ -161,6 +175,10 @@ class Conversation(TumbleItem):
                 post = api.write_conversation(title=self.title, conversation=self.conversation_text)
                 self.tumblr_id = post['id']
         super(Conversation, self).save()
+
+        if not self.content_id:
+            self.content_id = self.pk
+            super(Conversation, self).save()
 
         lines = self.conversation_text.split('\n')
         for line in lines:
@@ -199,6 +217,10 @@ class Video(TumbleItem):
                 self.tumblr_id = post['id']
         super(Video, self).save()
 
+        if not self.content_id:
+            self.content_id = self.pk
+            super(Video, self).save()
+
     def __unicode__(self):
         return u"Video"
 
@@ -219,6 +241,10 @@ class Audio(TumbleItem):
                 post = api.write_audio(name=self.name, url=self.url, description=self.description)
                 self.tumblr_id = post['id']
         super(Audio, self).save()
+
+        if not self.content_id:
+            self.content_id = self.pk
+            super(Audio, self).save()
 
     def __unicode__(self):
         return u"Audio"
