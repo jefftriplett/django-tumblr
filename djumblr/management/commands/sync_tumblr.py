@@ -43,6 +43,7 @@ class Command(BaseCommand):
             # Common to all models
             tumblr_id = tumbl['id']
             pub_date = datetime.datetime.strptime(tumbl['date-gmt'], '%Y-%m-%d %H:%M:%S %Z')
+            tags = tumbl.get('tags', None)
 
             self.log.debug('%s (%s)' % (tumblr_id, tumbl['type']))
 
@@ -97,6 +98,9 @@ class Command(BaseCommand):
                     else:
                         self.log.error('Type does not exist: %s' % (tumbl['type']))
 
+                    if tags:
+                        print m.tumblr_id
+                        m.tags = ' '.join(tags)
                     m.save()
 
                 except Exception, e:

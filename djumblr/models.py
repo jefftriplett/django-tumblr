@@ -5,6 +5,7 @@ from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.template import loader, Context
+from tagging.fields import TagField
 from tumblr import Api
 
 
@@ -29,6 +30,7 @@ class TumbleItem(models.Model):
     tumblr_id = models.CharField(max_length=64, editable=False, null=True)
     pub_date = models.DateTimeField(default=datetime.datetime.now)
     user = models.ForeignKey(User)
+    tags = TagField()
 
     # this is for magic later and makes doing lookups both easier and lazier.
     content_type = models.ForeignKey(ContentType, editable=False, null=True)
