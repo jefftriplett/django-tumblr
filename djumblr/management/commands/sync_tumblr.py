@@ -78,8 +78,8 @@ class Command(BaseCommand):
                     # 'Conversation' objects.
                     elif tumbl['type'] == "conversation":
                         title = tumbl.get('conversation-title', '')
-                        m = Conversation(tumblr_id=tumblr_id, pub_date=pub_date, user=user, title=title, conversation_text=tumbl['conversation-text'])
-                        #m.save()
+                        conversation_text = tumbl['conversation-text']
+                        m = Conversation(tumblr_id=tumblr_id, pub_date=pub_date, user=user, title=title, conversation_text=conversation_text)
 
                     # 'Video' objects.
                     elif tumbl['type'] == "video":
