@@ -66,9 +66,9 @@ class Command(BaseCommand):
 
                     # 'Quote' objects.
                     elif tumbl['type'] == "quote":
-                        quote = tumbl.get('quote-text', '')
+                        quote_text = tumbl.get('quote-text', '')
                         source = tumbl.get('quote-source', '')
-                        m = Quote(tumblr_id=tumblr_id, pub_date=pub_date, user=user, quote=quote, source=source)
+                        m = Quote(tumblr_id=tumblr_id, pub_date=pub_date, user=user, quote_text=quote_text, source=source)
 
                     # 'Link' objects.
                     elif tumbl['type'] == "link":

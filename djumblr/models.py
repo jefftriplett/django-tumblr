@@ -73,7 +73,7 @@ class Photo(TumbleItem):
 
 
 class Quote(TumbleItem):
-    quote = models.TextField()
+    quote_text = models.TextField()
     source = models.TextField(blank=True)
 
     def __unicode__(self):
