@@ -96,7 +96,9 @@ class Conversation(TumbleItem):
     title = models.CharField(max_length=500, blank=True)
     conversation_text = models.TextField()
 
-    def save(self):
+    def save(self, **kwargs):
+        super(Conversation, self).save(**kwargs)
+
         try:
             self.conversationline_set.all().delete()
         except:

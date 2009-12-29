@@ -1,7 +1,8 @@
-<h3>todo: conversation</h3>
 {% if object.conversation.title %}
 <h2><a href="{{ object.conversation.get_absolute_url }}">{{ object.conversation.title }}</a></h2>
 {% else %}
 <h2><a href="{{ object.conversation.get_absolute_url }}">No title</a></h2>
 {% endif %}
-<div>{{ object.conversation.body|safe }}</div>
+{% for conversationline in object.conversation.conversationline_set.all %}
+<div>{{ conversationline|safe }}</div>
+{% endfor %}
