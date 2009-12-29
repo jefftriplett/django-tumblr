@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Text</h2>
+<form method="post" action=".">
+{{regular_form.as_p}}
+<p><input type="submit" name="regular-form" value="Add Regular Post" class="button" /></p>
+</form>
+
+<hr/>
+
+<h2>Link</h2>
+<form method="post" action=".">
+{{link_form.as_p}}
+<p><input type="submit" name="link-form" value="Add Link" class="button" /></p>
+</form>
+
+<hr/>
+
+<h2>Quote</h2>
+<form method="post" action=".">
+{{quote_form.as_p}}
+<p><input type="submit" name="quote-form" value="Add Quote" class="button" /></p>
+</form>
+
+<hr/>
+
+<h2>Conversation</h2>
+<form method="post" action=".">
+{{conversation_form.as_p}}
+<p><input type="submit" name="conversation-form" value="Add Conversation" class="button" /></p>
+</form>
+
+<hr/>
+
+<h2>Audio</h2>
+<form method="post" action="." enctype="multipart/form-data">
+{{audio_form.as_p}}
+<p><input type="submit" name="audio-form" value="Add Audio File" class="button" /></p>
+</form>
+
+<hr/>
+
+<h2>Photo</h2>
+<form method="post" action="." enctype="multipart/form-data">
+{{photo_form.as_p}}
+<p><input type="submit" name="photo-form" value="Add Photo" class="button" /></p>
+</form>
+
+<hr/>
+
+<h2>Video</h2>
+<form method="post" action="." enctype="multipart/form-data">
+{{video_form.as_p}}
+<p><input type="submit" name="video-form" value="Add Video" class="button" /></p>
+</form>
+{% endblock %}
