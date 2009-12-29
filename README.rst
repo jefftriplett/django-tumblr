@@ -1,6 +1,6 @@
-===========================
-djumblr: Tumblr for Django.
-===========================
+==========================
+djumblr: Tumblr for Django
+==========================
 
 Instructions
 ============
@@ -15,19 +15,18 @@ An example (from djumblr.scripts.populate_all()):
 	His TUMBLR_USERS would be:
 
 	TUMBLR_USERS = { 'john': 
-	                        { 'tumblr_user': 'ignorantcarrot', }
-	               }
-             
+	    { 'tumblr_user': 'ignorantcarrot', }
+	}
 	If he wants to use the django site both for posting and syncing, he would have to 
 	update the TUMBLR_USERS variable with the email address and password he uses to
 	log in to tumblr.com:
 
 	TUMBLR_USERS = { 'john': 
-	                        { 'tumblr_user': 'ignorantcarrot',
-	                          'email': 'john.carrot@fullbladder.net',
-	                          'password': 'secret',
-	                        }
-	               }
+	    { 'tumblr_user': 'ignorantcarrot',
+	      'email': 'john.carrot@fullbladder.net',
+	      'password': 'secret',
+	    }
+	}
 	
 Alternatively, run populate_models(tumblr_user, user) from the scripts module, where 'tumblr_user'
 is a string containing the username of the tumblr user, and 'user' is a User object.
