@@ -34,7 +34,7 @@ def tumbleitem_saved_callback(sender, **kwargs):
                 elif instance.photo:
                     post = api.write_photo(data=open(instance.photo), caption=instance.caption, click_through_url=instance.click_through_url)
             elif content_type == 'quote':
-                post = api.write_quote(quote=instance.quote, source=instance.source)
+                post = api.write_quote(quote=instance.quote_text, source=instance.source)
             elif content_type == 'link':
                 post = api.write_link(name=instance.name, url=instance.url, description=instance.description)
             elif content_type == 'conversation':
