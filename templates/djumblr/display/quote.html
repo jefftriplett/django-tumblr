@@ -3,5 +3,5 @@
 {% else %}
 <h2><a href="{{ object.quote.get_absolute_url }}">Quote</a></h2>
 {% endif %}
-<blockquote>{{ object.quote.quote|safe }}</blockquote>
+<blockquote>{{ object.quote.quote_text|safe }}</blockquote>
 <div>{{ object.quote.source|safe }}</div>
