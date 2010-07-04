@@ -16,8 +16,8 @@ def get_user_api(username):
 def tumbleitem_saved_callback(sender, **kwargs):
     instance = kwargs['instance']
 
-    if not instance.content_id:
-        instance.content_id = instance.pk
+    if not instance.object_id:
+        instance.object_id = instance.pk
         instance.save()
 
     if not instance.tumblr_id:

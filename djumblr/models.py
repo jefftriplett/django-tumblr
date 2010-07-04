@@ -19,8 +19,8 @@ class TumbleItem(models.Model):
 
     # this is for magic later and makes doing lookups both easier and lazier.
     content_type = models.ForeignKey(ContentType, editable=False, null=True)
-    content_id = models.IntegerField(db_index=True, editable=False, null=True)
-    object = generic.GenericForeignKey(ct_field="content_type", fk_field="content_id")
+    object_id = models.PositiveIntegerField(db_index=True, editable=False, null=True)
+    object = generic.GenericForeignKey(ct_field="content_type", fk_field="object_id")
 
     class Meta:
         ordering = ['-pub_date']
@@ -43,7 +43,7 @@ class TumbleItem(models.Model):
         return (view_name, (), { 'year': self.pub_date.strftime("%Y"),
                                  'month': self.pub_date.strftime("%b").lower(),
                                  'day': self.pub_date.strftime("%d"),
-                                 'object_id': self.tumblr_id })
+                                 'tumblr_id': self.tumblr_id })
     get_absolute_url = models.permalink(get_absolute_url)
 
 
