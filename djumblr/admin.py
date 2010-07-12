@@ -5,8 +5,8 @@ from djumblr.models import Regular, Photo, Quote, Link, Conversation, Video, Aud
 
 class TumbleItemAdmin(admin.ModelAdmin):
     date_hierarchy = 'pub_date'
-    list_display = ('tumblr_id', 'pub_date', 'user', 'content_type')
-    list_filter = ('pub_date', 'content_type')
+    list_display = ('tumblr_id', 'pub_date', 'user', 'format', 'content_type')
+    list_filter = ('pub_date', 'format', 'content_type')
 
 
 admin.site.register(TumbleItem, TumbleItemAdmin)
