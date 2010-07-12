@@ -27,7 +27,7 @@ class TumbleItem(models.Model):
 
     def save(self, **kwargs):
         created = True if self.pk else False
-        if(not self.content_type):
+        if not self.content_type:
             self.content_type = ContentType.objects.get_for_model(self.__class__)
         self.save_base(**kwargs)
         tumbleitem_saved.send(sender=TumbleItem, instance=self, created=created)
