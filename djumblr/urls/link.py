@@ -1,9 +1,9 @@
 from django.conf.urls.defaults import *
 
-from djumblr.models import Link
+from djumblr.models import TumbleItem
 
 link_info_dict = {
-    'queryset': Link.objects.all(),
+    'queryset': TumbleItem.objects.filter(content_type__name='link'),
     'date_field': 'pub_date',
 }
 

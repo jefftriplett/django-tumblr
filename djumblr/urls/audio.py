@@ -1,9 +1,9 @@
 from django.conf.urls.defaults import *
 
-from djumblr.models import Audio
+from djumblr.models import TumbleItem
 
 audio_info_dict = {
-    'queryset': Audio.objects.all(),
+    'queryset': TumbleItem.objects.filter(content_type__name='audio'),
     'date_field': 'pub_date',
 }
 

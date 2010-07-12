@@ -1,9 +1,9 @@
 from django.conf.urls.defaults import *
 
-from djumblr.models import Conversation
+from djumblr.models import TumbleItem
 
 conversation_info_dict = {
-    'queryset': Conversation.objects.all(),
+    'queryset': TumbleItem.objects.filter(content_type__name='conversation'),
     'date_field': 'pub_date',
 }
 

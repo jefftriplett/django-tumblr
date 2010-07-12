@@ -1,9 +1,9 @@
 from django.conf.urls.defaults import *
 
-from djumblr.models import Video
+from djumblr.models import TumbleItem
 
 video_info_dict = {
-    'queryset': Video.objects.all(),
+    'queryset': TumbleItem.objects.filter(content_type__name='video'),
     'date_field': 'pub_date',
 }
 

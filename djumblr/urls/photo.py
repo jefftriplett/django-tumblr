@@ -1,9 +1,9 @@
 from django.conf.urls.defaults import *
 
-from djumblr.models import Photo
+from djumblr.models import TumbleItem
 
 photo_info_dict = {
-    'queryset': Photo.objects.all(),
+    'queryset': TumbleItem.objects.filter(content_type__name='photo'),
     'date_field': 'pub_date',
 }
 

@@ -1,9 +1,9 @@
 from django.conf.urls.defaults import *
 
-from djumblr.models import Regular
+from djumblr.models import TumbleItem
 
 regular_info_dict = {
-    'queryset': Regular.objects.all(),
+    'queryset': TumbleItem.objects.filter(content_type__name='regular'),
     'date_field': 'pub_date',
 }
 

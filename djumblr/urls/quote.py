@@ -1,9 +1,9 @@
 from django.conf.urls.defaults import *
 
-from djumblr.models import Quote
+from djumblr.models import TumbleItem
 
 quote_info_dict = {
-    'queryset': Quote.objects.all(),
+    'queryset': TumbleItem.objects.filter(content_type__name='quote'),
     'date_field': 'pub_date',
 }
 
