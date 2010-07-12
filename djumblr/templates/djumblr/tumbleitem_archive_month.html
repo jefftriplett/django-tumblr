@@ -2,9 +2,11 @@
 
 {% block content %}
 {% load djumblr %}
-<div class="entry">
-	{% for object in object_list %}
-		<p>{{ object|djumbr }}</p>
-	{% endfor %}
+<div class="posts">
+{% for object in object_list %}
+<div id="post_{{ object.id }}" class="{{ object.content_type.name }}">
+{% tumblr_render object %}
+</div>
+{% endfor %}
 </div>
 {% endblock %}
