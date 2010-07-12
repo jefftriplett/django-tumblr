@@ -10,13 +10,13 @@ from djumblr.forms import AudioForm, ConversationForm, LinkForm, PhotoForm, Quot
 
 
 def tumble_object_list(request, page=0, content_type=None, template_name='djumblr/tumbleitem_list.html', **kwargs):
-    qs = TumbleItem.objects.all()
+    queryset = TumbleItem.objects.all()
     if content_type:
-        qs = qs.filter(content_type__name=content_type)
+        queryset = queryset.filter(content_type__name=content_type)
 
     return list_detail.object_list(
         request,
-        queryset = qs,
+        queryset = queryset,
         paginate_by = 20,
         page = page,
         template_name = template_name,
@@ -25,29 +25,29 @@ def tumble_object_list(request, page=0, content_type=None, template_name='djumbl
 
 
 def tumble_archive_index(request, page=0, content_type=None, template_name='djumblr/tumbleitem_archive.html', **kwargs):
-    qs = TumbleItem.objects.all()
+    queryset = TumbleItem.objects.all()
     if content_type:
-        qs = qs.filter(content_type__name=content_type)
+        queryset = queryset.filter(content_type__name=content_type)
 
     return date_based.archive_index(
         request,
         date_field = 'pub_date',
-        queryset = qs,
+        queryset = queryset,
         template_name = template_name,
         **kwargs
     )
 
 
 def tumble_item_archive_year(request, year, content_type=None, template_name='djumblr/tumbleitem_archive_year.html', **kwargs):
-    qs = TumbleItem.objects.all()
+    queryset = TumbleItem.objects.all()
     if content_type:
-        qs = qs.filter(content_type__name=content_type)
+        queryset = queryset.filter(content_type__name=content_type)
 
     return date_based.archive_year(
         request,
         year = year,
         date_field = 'pub_date',
-        queryset = qs,
+        queryset = queryset,
         make_object_list = True,
         template_name = template_name,
         **kwargs
@@ -55,25 +55,25 @@ def tumble_item_archive_year(request, year, content_type=None, template_name='dj
 
 
 def tumble_item_archive_month(request, year, month, content_type=None, template_name='djumblr/generic.html', **kwargs):
-    qs = TumbleItem.objects.all()
+    queryset = TumbleItem.objects.all()
     if content_type:
-        qs = qs.filter(content_type__name=content_type)
+        queryset = queryset.filter(content_type__name=content_type)
 
     return date_based.archive_month(
         request,
         year = year,
         month = month,
         date_field = 'pub_date',
-        queryset = qs,
+        queryset = queryset,
         template_name = template_name,
         **kwargs
     )
 
 
 def tumble_item_archive_day(request, year, month, day, content_type=None, template_name='djumblr/generic.html', **kwargs):
-    qs = TumbleItem.objects.all()
+    queryset = TumbleItem.objects.all()
     if content_type:
-        qs = qs.objects.filter(content_type__name=content_type)
+        queryset = queryset.objects.filter(content_type__name=content_type)
 
     return date_based.archive_day(
         request,
@@ -81,16 +81,16 @@ def tumble_item_archive_day(request, year, month, day, content_type=None, templa
         month = month,
         day = day,
         date_field = 'pub_date',
-        queryset = qs,
+        queryset = queryset,
         template_name = template_name,
         **kwargs
     )
 
 
 def tumble_item_detail(request, year, month, day, tumblr_id, content_type=None, template_name='djumblr/generic_detail.html', **kwargs):
-    qs = TumbleItem.objects.all()
+    queryset = TumbleItem.objects.all()
     if content_type:
-        qs = qs.filter(content_type__name=content_type)
+        queryset = queryset.filter(content_type__name=content_type)
 
     return date_based.object_detail(
         request,
@@ -100,7 +100,7 @@ def tumble_item_detail(request, year, month, day, tumblr_id, content_type=None, 
         date_field = 'pub_date',
         slug_field = 'tumblr_id',
         slug = tumblr_id,
-        queryset = qs,
+        queryset = queryset,
         template_name = template_name,
         **kwargs
     )
