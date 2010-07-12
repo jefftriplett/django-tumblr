@@ -150,7 +150,7 @@ class Audio(TumbleItem):
     embed = models.TextField(blank=True)
     caption = models.TextField(blank=True)
 
-    class Meta: #(TumbleItem.Meta):
+    class Meta:
         ordering = ['-pub_date']
         verbose_name_plural = "Audio"
 
