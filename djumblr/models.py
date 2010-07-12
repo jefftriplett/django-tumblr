@@ -45,6 +45,15 @@ class TumbleItem(models.Model):
                                  'tumblr_id': self.tumblr_id })
     get_absolute_url = models.permalink(get_absolute_url)
 
+    def get_content_type_url(self):
+        view_name = 'djumblr_content_type_detail' % (self.content_type)
+        return (view_name, (), { 'content_type': self.content_type.name,
+                                 'year': self.pub_date.strftime("%Y"),
+                                 'month': self.pub_date.strftime("%b").lower(),
+                                 'day': self.pub_date.strftime("%d"),
+                                 'tumblr_id': self.tumblr_id })
+    get_content_type_url = models.permalink(get_content_type_url)
+
 
 class Regular(TumbleItem):
     title = models.CharField(max_length=250, blank=True)
