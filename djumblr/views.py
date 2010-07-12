@@ -9,7 +9,7 @@ from djumblr.models import Audio, Conversation, Link, Photo, Quote, Regular, Vid
 from djumblr.forms import AudioForm, ConversationForm, LinkForm, PhotoForm, QuoteForm, RegularForm, VideoForm
 
 
-def tumble_object_list(request, page=0, content_type=None, **kwargs):
+def tumble_object_list(request, page=0, content_type=None, template_name='djumblr/tumbleitem_list.html', **kwargs):
     qs = TumbleItem.objects.all()
     if content_type:
         qs = qs.filter(content_type__name=content_type)
