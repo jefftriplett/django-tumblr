@@ -9,7 +9,7 @@ from djumblr.models import Audio, Conversation, Link, Photo, Quote, Regular, Vid
 from djumblr.forms import AudioForm, ConversationForm, LinkForm, PhotoForm, QuoteForm, RegularForm, VideoForm
 
 
-def tumble_object_list(request, page=0, content_type=None, template_name='djumblr/generic.html', **kwargs):
+def tumble_object_list(request, page=0, content_type=None, template_name='djumblr/tumbleitem_list.html', **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
@@ -54,7 +54,7 @@ def tumble_item_archive_year(request, year, content_type=None, template_name='dj
     )
 
 
-def tumble_item_archive_month(request, year, month, content_type=None, template_name='djumblr/generic.html', **kwargs):
+def tumble_item_archive_month(request, year, month, content_type=None, template_name='djumblr/tumbleitem_list.html', **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
@@ -70,7 +70,7 @@ def tumble_item_archive_month(request, year, month, content_type=None, template_
     )
 
 
-def tumble_item_archive_day(request, year, month, day, content_type=None, template_name='djumblr/generic.html', **kwargs):
+def tumble_item_archive_day(request, year, month, day, content_type=None, template_name='djumblr/tumbleitem_list.html', **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.objects.filter(content_type__name=content_type)
@@ -87,7 +87,7 @@ def tumble_item_archive_day(request, year, month, day, content_type=None, templa
     )
 
 
-def tumble_item_detail(request, year, month, day, tumblr_id, content_type=None, template_name='djumblr/generic_detail.html', **kwargs):
+def tumble_item_detail(request, year, month, day, tumblr_id, content_type=None, template_name='djumblr/tumbleitem_detail.html', **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
