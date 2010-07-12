@@ -61,49 +61,17 @@ class TumbleItem(models.Model):
     get_content_type_url = models.permalink(get_content_type_url)
 
 
-class Regular(TumbleItem):
-    title = models.CharField(max_length=250, blank=True)
-    body = models.TextField()
+class Audio(TumbleItem):
+    data = models.FileField(upload_to='audio/', blank=True)
+    embed = models.TextField(blank=True)
+    caption = models.TextField(blank=True)
 
     class Meta:
         ordering = ['-pub_date']
-        verbose_name_plural = "Regular"
+        verbose_name_plural = "Audio"
 
     def __unicode__(self):
-        if self.title:
-            return u"%s (regular)" % self.title
-        else:
-            return u"Regular"
-
-
-class Photo(TumbleItem):
-    source = models.URLField(blank=True)
-    photo = models.ImageField(upload_to="photos/", blank=True)
-    caption = models.TextField(blank=True)
-    click_through_url = models.URLField(blank=True)
-
-    def __unicode__(self):
-        return u"Photo"
-
-
-class Quote(TumbleItem):
-    quote_text = models.TextField()
-    source = models.TextField(blank=True)
-
-    def __unicode__(self):
-        return u"Quote"
-
-
-class Link(TumbleItem):
-    name = models.CharField(max_length=500, blank=True)
-    url = models.URLField(max_length=1000)
-    description = models.TextField(blank=True)
-
-    def __unicode__(self):
-        if self.name:
-            return u"%s (link)" % self.name
-        else:
-            return u"Link"
+        return u"Audio"
 
 
 class Conversation(TumbleItem):
@@ -141,6 +109,51 @@ class ConversationLine(models.Model):
         return self.line
 
 
+class Link(TumbleItem):
+    name = models.CharField(max_length=500, blank=True)
+    url = models.URLField(max_length=1000)
+    description = models.TextField(blank=True)
+
+    def __unicode__(self):
+        if self.name:
+            return u"%s (link)" % self.name
+        else:
+            return u"Link"
+
+
+class Photo(TumbleItem):
+    source = models.URLField(blank=True)
+    photo = models.ImageField(upload_to="photos/", blank=True)
+    caption = models.TextField(blank=True)
+    click_through_url = models.URLField(blank=True)
+
+    def __unicode__(self):
+        return u"Photo"
+
+
+class Quote(TumbleItem):
+    quote_text = models.TextField()
+    source = models.TextField(blank=True)
+
+    def __unicode__(self):
+        return u"Quote"
+
+
+class Regular(TumbleItem):
+    title = models.CharField(max_length=250, blank=True)
+    body = models.TextField()
+
+    class Meta:
+        ordering = ['-pub_date']
+        verbose_name_plural = "Regular"
+
+    def __unicode__(self):
+        if self.title:
+            return u"%s (regular)" % self.title
+        else:
+            return u"Regular"
+
+
 class Video(TumbleItem):
     embed = models.TextField(blank=True)
     data = models.FileField(blank=True, upload_to='videos/')
@@ -149,19 +162,6 @@ class Video(TumbleItem):
 
     def __unicode__(self):
         return u"Video"
-
-
-class Audio(TumbleItem):
-    data = models.FileField(upload_to='audio/', blank=True)
-    embed = models.TextField(blank=True)
-    caption = models.TextField(blank=True)
-
-    class Meta:
-        ordering = ['-pub_date']
-        verbose_name_plural = "Audio"
-
-    def __unicode__(self):
-        return u"Audio"
 
 
 tumbleitem_saved.connect(tumbleitem_saved_callback, sender=TumbleItem)
