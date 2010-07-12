@@ -10,13 +10,14 @@ from djumblr.models import Audio, Conversation, Link, Photo, Quote, Regular, Vid
 from djumblr.forms import AudioForm, ConversationForm, LinkForm, PhotoForm, QuoteForm, RegularForm, VideoForm
 
 
-def tumble_object_list(request, page=0, content_type=None, template_name='djumblr/tumbleitem_list.html', **kwargs):
+def tumble_object_list(request, page=0, content_type=None, template_name=None, **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
         select_template_name = select_template([
+            template_name or '',
             'djumblr/%s_list.html' % (content_type),
-            template_name
+            'djumblr/tumbleitem_list.html',
         ])
         template_name = select_template_name.name
 
@@ -30,13 +31,14 @@ def tumble_object_list(request, page=0, content_type=None, template_name='djumbl
     )
 
 
-def tumble_archive_index(request, page=0, content_type=None, template_name='djumblr/tumbleitem_archive.html', **kwargs):
+def tumble_archive_index(request, page=0, content_type=None, template_name=None, **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
         select_template_name = select_template([
+            template_name or '',
             'djumblr/%s_archive.html' % (content_type),
-            template_name
+            'djumblr/tumbleitem_archive.html',
         ])
         template_name = select_template_name.name
 
@@ -49,13 +51,14 @@ def tumble_archive_index(request, page=0, content_type=None, template_name='djum
     )
 
 
-def tumble_item_archive_year(request, year, content_type=None, template_name='djumblr/tumbleitem_archive_year.html', **kwargs):
+def tumble_item_archive_year(request, year, content_type=None, template_name=None, **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
         select_template_name = select_template([
+            template_name or '',
             'djumblr/%s_archive_year.html' % (content_type),
-            template_name
+            'djumblr/tumbleitem_archive_year.html',
         ])
         template_name = select_template_name.name
 
@@ -70,14 +73,15 @@ def tumble_item_archive_year(request, year, content_type=None, template_name='dj
     )
 
 
-def tumble_item_archive_month(request, year, month, content_type=None, template_name='djumblr/tumbleitem_archive_month.html', **kwargs):
+def tumble_item_archive_month(request, year, month, content_type=None, template_name=None, **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
         select_template_name = select_template([
+            template_name or '',
             'djumblr/%s_archive_month.html' % (content_type),
-            template_name,
-            'djumblr/tumbleitem_list.html'
+            'djumblr/tumbleitem_archive_month.html',
+            'djumblr/tumbleitem_list.html',
         ])
         template_name = select_template_name.name
 
@@ -92,13 +96,14 @@ def tumble_item_archive_month(request, year, month, content_type=None, template_
     )
 
 
-def tumble_item_archive_day(request, year, month, day, content_type=None, template_name='djumblr/tumbleitem_list.html', **kwargs):
+def tumble_item_archive_day(request, year, month, day, content_type=None, template_name=None, **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
         select_template_name = select_template([
+            template_name or '',
             'djumblr/%s_list.html' % (content_type),
-            template_name
+            'djumblr/tumbleitem_list.html',
         ])
         template_name = select_template_name.name
 
@@ -114,13 +119,14 @@ def tumble_item_archive_day(request, year, month, day, content_type=None, templa
     )
 
 
-def tumble_item_detail(request, year, month, day, tumblr_id, content_type=None, template_name='djumblr/tumbleitem_detail.html', **kwargs):
+def tumble_item_detail(request, year, month, day, tumblr_id, content_type=None, template_name=None, **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
         select_template_name = select_template([
+            template_name or '',
             'djumblr/%s_detail.html' % (content_type),
-            template_name
+            'djumblr/tumbleitem_detail.html',
         ])
         template_name = select_template_name.name
 
