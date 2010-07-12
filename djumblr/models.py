@@ -11,9 +11,15 @@ from djumblr.callbacks import tumbleitem_saved_callback, tumbleitem_deleted_call
 
 
 class TumbleItem(models.Model):
+    FORMAT_CHOICES = (
+        ('html', 'HTML'),
+        ('markdown', 'Markdown'),
+    )
+
     tumblr_id = models.CharField(max_length=64, editable=False, null=True)
     pub_date = models.DateTimeField(default=datetime.datetime.now)
     user = models.ForeignKey(User)
+    format = models.CharField(max_length=10, choices=FORMAT_CHOICES, default='html')
     tags = TagField()
 
     # this is for magic later and makes doing lookups both easier and lazier.

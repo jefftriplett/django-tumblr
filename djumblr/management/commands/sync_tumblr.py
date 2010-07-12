@@ -42,6 +42,7 @@ class Command(BaseCommand):
             # Common to all models
             tumblr_id = tumbl['id']
             pub_date = datetime.datetime.strptime(tumbl['date-gmt'], '%Y-%m-%d %H:%M:%S %Z')
+            format = tumbl['format']
             tags = ', '.join(tumbl.get('tags', []))
             self.log.debug('%s (%s)' % (tumblr_id, tumbl['type']))
 
@@ -54,21 +55,21 @@ class Command(BaseCommand):
                     if tumbl['type'] == "regular":
                         title = tumbl.get('regular-title', '')
                         body = tumbl['regular-body']
-                        m = Regular(tumblr_id=tumblr_id, pub_date=pub_date, user=user, title=title, body=body, tags=tags)
+                        m = Regular(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, title=title, body=body, tags=tags)
                         m.save()
 
                     # 'Photo' objects.
                     elif tumbl['type'] == "photo":
                         source = tumbl['photo-url-250']
                         caption = tumbl.get('photo-caption', '')
-                        m = Photo(tumblr_id=tumblr_id, pub_date=pub_date, user=user, source=source, caption=caption, tags=tags)
+                        m = Photo(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, source=source, caption=caption, tags=tags)
                         m.save()
 
                     # 'Quote' objects.
                     elif tumbl['type'] == "quote":
                         quote_text = tumbl.get('quote-text', '')
                         source = tumbl.get('quote-source', '')
-                        m = Quote(tumblr_id=tumblr_id, pub_date=pub_date, user=user, quote_text=quote_text, source=source, tags=tags)
+                        m = Quote(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, quote_text=quote_text, source=source, tags=tags)
                         m.save()
 
                     # 'Link' objects.
@@ -76,28 +77,28 @@ class Command(BaseCommand):
                         name = tumbl.get('link-text', '')
                         url = tumbl['link-url']
                         description = tumbl.get('link-description', '')
-                        m = Link(tumblr_id=tumblr_id, pub_date=pub_date, user=user, name=name, url=url, description=description, tags=tags)
+                        m = Link(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, name=name, url=url, description=description, tags=tags)
                         m.save()
 
                     # 'Conversation' objects.
                     elif tumbl['type'] == "conversation":
                         title = tumbl.get('conversation-title', '')
                         conversation_text = tumbl['conversation-text']
-                        m = Conversation(tumblr_id=tumblr_id, pub_date=pub_date, user=user, title=title, conversation_text=conversation_text, tags=tags)
+                        m = Conversation(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, title=title, conversation_text=conversation_text, tags=tags)
                         m.save()
 
                     # 'Video' objects.
                     elif tumbl['type'] == "video":
                         embed = tumbl['video-player']
                         caption = tumbl.get('video-caption', '')
-                        m = Video(tumblr_id=tumblr_id, pub_date=pub_date, user=user, embed=embed, caption=caption, tags=tags)
+                        m = Video(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, embed=embed, caption=caption, tags=tags)
                         m.save()
 
                     # 'Audio' objects.
                     elif tumbl['type'] == "audio":
                         embed = tumbl['audio-player']
                         caption = tumbl.get('audio-caption', '')
-                        m = Audio(tumblr_id=tumblr_id, pub_date=pub_date, user=user, embed=embed, caption=caption, tags=tags)
+                        m = Audio(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, embed=embed, caption=caption, tags=tags)
                         m.save()
 
                     # TODO: Raise error.
