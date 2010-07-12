@@ -24,7 +24,7 @@ def tumble_object_list(request, page=0, content_type=None, template_name='djumbl
     )
 
 
-def tumble_archive_index(request, page=0, template_name='djumblr/tumbleitem_archive.html', content_type=None, **kwargs):
+def tumble_archive_index(request, page=0, content_type=None, template_name='djumblr/tumbleitem_archive.html', **kwargs):
     qs = TumbleItem.objects.all()
     if content_type:
         qs = qs.filter(content_type__name=content_type)
@@ -38,7 +38,7 @@ def tumble_archive_index(request, page=0, template_name='djumblr/tumbleitem_arch
     )
 
 
-def tumble_item_archive_year(request, year, template_name='djumblr/tumbleitem_archive_year.html', content_type=None, **kwargs):
+def tumble_item_archive_year(request, year, content_type=None, template_name='djumblr/tumbleitem_archive_year.html', **kwargs):
     qs = TumbleItem.objects.all()
     if content_type:
         qs = qs.filter(content_type__name=content_type)
@@ -54,7 +54,7 @@ def tumble_item_archive_year(request, year, template_name='djumblr/tumbleitem_ar
     )
 
 
-def tumble_item_archive_month(request, year, month, template_name='djumblr/generic.html', content_type=None, **kwargs):
+def tumble_item_archive_month(request, year, month, content_type=None, template_name='djumblr/generic.html', **kwargs):
     qs = TumbleItem.objects.all()
     if content_type:
         qs = qs.filter(content_type__name=content_type)
@@ -70,7 +70,7 @@ def tumble_item_archive_month(request, year, month, template_name='djumblr/gener
     )
 
 
-def tumble_item_archive_day(request, year, month, day, template_name='djumblr/generic.html', content_type=None, **kwargs):
+def tumble_item_archive_day(request, year, month, day, content_type=None, template_name='djumblr/generic.html', **kwargs):
     qs = TumbleItem.objects.all()
     if content_type:
         qs = qs.objects.filter(content_type__name=content_type)
@@ -87,7 +87,7 @@ def tumble_item_archive_day(request, year, month, day, template_name='djumblr/ge
     )
 
 
-def tumble_item_detail(request, year, month, day, tumblr_id, template_name='djumblr/generic_detail.html', content_type=None, **kwargs):
+def tumble_item_detail(request, year, month, day, tumblr_id, content_type=None, template_name='djumblr/generic_detail.html', **kwargs):
     qs = TumbleItem.objects.all()
     if content_type:
         qs = qs.filter(content_type__name=content_type)
