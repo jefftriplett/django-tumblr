@@ -51,7 +51,7 @@ def tumble_archive_index(request, page=0, content_type=None, template_name=None,
     )
 
 
-def tumble_item_archive_year(request, year, content_type=None, template_name=None, **kwargs):
+def tumble_archive_year(request, year, content_type=None, template_name=None, **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
@@ -73,7 +73,7 @@ def tumble_item_archive_year(request, year, content_type=None, template_name=Non
     )
 
 
-def tumble_item_archive_month(request, year, month, content_type=None, template_name=None, **kwargs):
+def tumble_archive_month(request, year, month, content_type=None, template_name=None, **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
@@ -96,7 +96,7 @@ def tumble_item_archive_month(request, year, month, content_type=None, template_
     )
 
 
-def tumble_item_archive_day(request, year, month, day, content_type=None, template_name=None, **kwargs):
+def tumble_archive_day(request, year, month, day, content_type=None, template_name=None, **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
@@ -119,7 +119,7 @@ def tumble_item_archive_day(request, year, month, day, content_type=None, templa
     )
 
 
-def tumble_item_detail(request, year, month, day, tumblr_id, content_type=None, template_name=None, **kwargs):
+def tumble_archive_object_detail(request, year, month, day, tumblr_id, content_type=None, template_name=None, **kwargs):
     queryset = TumbleItem.objects.all()
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
