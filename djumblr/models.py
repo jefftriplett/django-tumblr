@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from tagging.fields import TagField
+from taggit.managers import TaggableManager
 
 from djumblr.signals import tumbleitem_saved, tumbleitem_deleted
 from djumblr.callbacks import tumbleitem_saved_callback, tumbleitem_deleted_callback
@@ -20,7 +20,7 @@ class TumbleItem(models.Model):
     pub_date = models.DateTimeField(default=datetime.datetime.now)
     user = models.ForeignKey(User)
     format = models.CharField(max_length=10, choices=FORMAT_CHOICES, default='html')
-    tags = TagField()
+    tags = TaggableManager()
 
     # this is for magic later and makes doing lookups both easier and lazier.
     content_type = models.ForeignKey(ContentType, editable=False, null=True)

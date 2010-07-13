@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h3>{{ tag }}</h3>
 {% load djumblr %}
 <div class="posts">
 {% for object in object_list %}
 <div id="post_{{ object.id }}" class="{{ object.content_type.name }}">
 {% tumblr_render object %}
-</div>
-<div class="post_tags">
-{% for tag in object.object.tags.all %}<a href="{% url djumblr_tag_detail tag.slug %}">{{ tag }}</a> {% endfor %}
 </div>
 {% endfor %}
 </div>

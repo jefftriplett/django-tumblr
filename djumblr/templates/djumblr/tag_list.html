@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="tags">
+{% for tag in tags %}
+<div><a href="{% url djumblr_tag_detail tag.slug %}">{{ tag }}</a>
+</div>
+{% endfor %}
+{% endblock %}

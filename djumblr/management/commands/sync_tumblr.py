@@ -43,8 +43,9 @@ class Command(BaseCommand):
             tumblr_id = tumbl['id']
             pub_date = datetime.datetime.strptime(tumbl['date-gmt'], '%Y-%m-%d %H:%M:%S %Z')
             format = tumbl['format']
-            tags = ', '.join(tumbl.get('tags', []))
+            tags = tumbl.get('tags', [])
             self.log.debug('%s (%s)' % (tumblr_id, tumbl['type']))
+            print tags
 
             try:
                 TumbleItem.objects.get(tumblr_id=tumblr_id)
@@ -55,51 +56,58 @@ class Command(BaseCommand):
                     if tumbl['type'] == "regular":
                         title = tumbl.get('regular-title', '')
                         body = tumbl['regular-body']
-                        m = Regular(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, title=title, body=body, tags=tags)
+                        m = Regular(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, title=title, body=body)
                         m.save()
+                        m.tags.add(*tags)
 
                     # 'Photo' objects.
                     elif tumbl['type'] == "photo":
                         source = tumbl['photo-url-250']
                         caption = tumbl.get('photo-caption', '')
-                        m = Photo(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, source=source, caption=caption, tags=tags)
+                        m = Photo(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, source=source, caption=caption)
                         m.save()
+                        m.tags.add(*tags)
 
                     # 'Quote' objects.
                     elif tumbl['type'] == "quote":
                         quote_text = tumbl.get('quote-text', '')
                         source = tumbl.get('quote-source', '')
-                        m = Quote(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, quote_text=quote_text, source=source, tags=tags)
+                        m = Quote(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, quote_text=quote_text, source=source)
                         m.save()
+                        m.tags.add(*tags)
 
                     # 'Link' objects.
                     elif tumbl['type'] == "link":
                         name = tumbl.get('link-text', '')
                         url = tumbl['link-url']
                         description = tumbl.get('link-description', '')
-                        m = Link(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, name=name, url=url, description=description, tags=tags)
+                        m = Link(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, name=name, url=url, description=description)
                         m.save()
+                        m.tags.add(*tags)
 
                     # 'Conversation' objects.
                     elif tumbl['type'] == "conversation":
                         title = tumbl.get('conversation-title', '')
                         conversation_text = tumbl['conversation-text']
-                        m = Conversation(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, title=title, conversation_text=conversation_text, tags=tags)
+                        m = Conversation(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, title=title, conversation_text=conversation_text)
                         m.save()
+                        m.tags.add(*tags)
 
                     # 'Video' objects.
                     elif tumbl['type'] == "video":
                         embed = tumbl['video-player']
                         caption = tumbl.get('video-caption', '')
-                        m = Video(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, embed=embed, caption=caption, tags=tags)
+                        m = Video(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, embed=embed, caption=caption)
                         m.save()
+                        m.tags.add(*tags)
 
                     # 'Audio' objects.
                     elif tumbl['type'] == "audio":
                         embed = tumbl['audio-player']
                         caption = tumbl.get('audio-caption', '')
-                        m = Audio(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, embed=embed, caption=caption, tags=tags)
+                        m = Audio(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, embed=embed, caption=caption)
                         m.save()
+                        m.tags.add(*tags)
 
                     # TODO: Raise error.
                     else:

@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import select_template
 from django.views.generic import date_based, list_detail
+
+from taggit.models import Tag
 
 from djumblr.models import TumbleItem
 from djumblr.models import Audio, Conversation, Link, Photo, Quote, Regular, Video
@@ -142,6 +144,28 @@ def tumble_archive_object_detail(request, year, month, day, tumblr_id, content_t
         template_name = template_name,
         **kwargs
     )
+
+
+def tumble_tag_detail(request, slug):
+    try:
+        tag = Tag.objects.get(slug=slug)
+    except Tag.DoesNotExist:
+        raise Http404
+
+    tumble_items = TumbleItem.objects.filter(tags__in=[tag])
+
+    return render_to_response('djumblr/tag_detail.html', {
+        'tag': tag,
+        'object_list': tumble_items,
+    }, context_instance=RequestContext(request))
+
+
+def tumble_tag_list(request):
+    tags = Tag.objects.all()
+
+    return render_to_response('djumblr/tag_list.html', {
+        'tags': tags,
+    }, context_instance=RequestContext(request))
 
 
 @login_required

@@ -25,6 +25,16 @@ urlpatterns = patterns('',
         views.tumble_item_form,
         name='tumble_form'),
 
+    # tag related
+    url(r'^tags/(?P<slug>(.*))/$',
+        views.tumble_tag_detail,
+        name='djumblr_tag_detail',
+    ),
+    url(r'^tags/$',
+        views.tumble_tag_list,
+        name='djumblr_tag_list'
+    ),
+
     # urls based on the content_type of the TumbleItem...
     url(r'^(?P<content_type>[-\w]+)/$',
         views.tumble_archive_index,
