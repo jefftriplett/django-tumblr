@@ -45,7 +45,6 @@ class Command(BaseCommand):
             format = tumbl['format']
             tags = tumbl.get('tags', [])
             self.log.debug('%s (%s)' % (tumblr_id, tumbl['type']))
-            print tags
 
             try:
                 TumbleItem.objects.get(tumblr_id=tumblr_id)

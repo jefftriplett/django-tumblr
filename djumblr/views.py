@@ -4,7 +4,6 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import select_template
 from django.views.generic import date_based, list_detail
-
 from taggit.models import Tag
 
 from djumblr.models import TumbleItem
