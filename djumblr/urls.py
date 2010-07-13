@@ -42,6 +42,17 @@ urlpatterns = patterns('',
     url(r'^(?P<content_type>[-\w]+)/list/$',
         views.tumble_object_list,
         name='djumblr_content_type_object_list'),
+
+    # tag + content_type related
+    url(r'^(?P<content_type>[-\w]+)/tags/(?P<slug>(.*))/$',
+        views.tumble_tag_detail,
+        name='djumblr_tag_detail',
+    ),
+    url(r'^(?P<content_type>[-\w]+)/tags/$',
+        views.tumble_tag_list,
+        name='djumblr_tag_list'
+    ),
+
     url(r'^(?P<content_type>[-\w]+)/(?P<year>\d{4})/$',
         views.tumble_archive_year,
         name='djumblr_content_type_archive_year'),

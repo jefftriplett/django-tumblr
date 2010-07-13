@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import select_template
 from django.views.generic import date_based, list_detail
-from taggit.models import Tag
+from taggit.models import Tag, TaggedItem
 
 from djumblr.models import TumbleItem
 from djumblr.models import Audio, Conversation, Link, Photo, Quote, Regular, Video
@@ -145,25 +145,44 @@ def tumble_archive_object_detail(request, year, month, day, tumblr_id, content_t
     )
 
 
-def tumble_tag_detail(request, slug):
+def tumble_tag_detail(request, slug, content_type=None, template_name=None):
     try:
         tag = Tag.objects.get(slug=slug)
     except Tag.DoesNotExist:
         raise Http404
 
-    tumble_items = TumbleItem.objects.filter(tags__in=[tag])
+    queryset = TumbleItem.objects.filter(tags__in=[tag])
+    if content_type:
+        queryset = queryset.filter(content_type__name=content_type)
+        select_template_name = select_template([
+            template_name or '',
+            'djumblr/%s_tag_detail.html' % (content_type),
+            'djumblr/tag_detail.html',
+        ])
+        template_name = select_template_name.name
 
     return render_to_response('djumblr/tag_detail.html', {
         'tag': tag,
-        'object_list': tumble_items,
+        'object_list': queryset,
     }, context_instance=RequestContext(request))
 
 
-def tumble_tag_list(request):
-    tags = Tag.objects.all()
+def tumble_tag_list(request, content_type=None, template_name=None):
+    queryset = Tag.objects.all()
+    if content_type:
+        queryset = queryset.filter(pk__in=TaggedItem.objects.filter(content_type__name=content_type))
+        select_template_name = select_template([
+            template_name or '',
+            'djumblr/%s_tag_list.html' % (content_type),
+            'djumblr/tag_list.html',
+        ])
+        template_name = select_template_name.name
+
+    if not queryset.count():
+        raise Http404
 
     return render_to_response('djumblr/tag_list.html', {
-        'tags': tags,
+        'tags': queryset,
     }, context_instance=RequestContext(request))
 
 
