@@ -8,7 +8,7 @@
 {% tumblr_render object %}
 </div>
 <div class="post_tags">
-{% for tag in object.object.tags.all %}<a href="{% url djumblr_tag_detail tag.slug %}">{{ tag }}</a> {% endfor %}
+{% for tag in object.object.tags.all %}<a href="{% if content_type %}{% url djumblr_content_type_tag_detail content_type,tag.slug %}{% else %}{% url djumblr_tag_detail tag.slug %}{% endif %}">{{ tag }}</a> {% endfor %}
 </div>
 {% endfor %}
 </div>

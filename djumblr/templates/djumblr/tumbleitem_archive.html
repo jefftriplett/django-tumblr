@@ -3,7 +3,7 @@
 {% block content %}
 <ul>
   {% for year in date_list %}
-    <li><a href="{% url djumblr_archive_year year|date:"Y" %}">{{ year|date:"Y" }}</a></li>
+    <li><a href="{% if content_type %}{% url djumblr_content_type_archive_year content_type,year|date:"Y" %}{% else %}{% url djumblr_archive_year year|date:"Y" %}{% endif %}">{{ year|date:"Y" }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}

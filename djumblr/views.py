@@ -24,6 +24,10 @@ def tumble_object_list(request, page=0, content_type=None, template_name=None, *
     ])
     template_name = select_template_name.name
 
+    if 'extra_context' not in kwargs:
+        kwargs['extra_context'] = {}
+    kwargs['extra_context']['content_type'] = content_type
+
     return list_detail.object_list(
         request,
         queryset = queryset,
@@ -47,6 +51,10 @@ def tumble_archive_index(request, page=0, content_type=None, template_name=None,
     ])
     template_name = select_template_name.name
 
+    if 'extra_context' not in kwargs:
+        kwargs['extra_context'] = {}
+    kwargs['extra_context']['content_type'] = content_type
+
     return date_based.archive_index(
         request,
         date_field = 'pub_date',
@@ -68,6 +76,10 @@ def tumble_archive_year(request, year, content_type=None, template_name=None, **
         'djumblr/tumbleitem_archive_year.html',
     ])
     template_name = select_template_name.name
+
+    if 'extra_context' not in kwargs:
+        kwargs['extra_context'] = {}
+    kwargs['extra_context']['content_type'] = content_type
 
     return date_based.archive_year(
         request,
@@ -94,6 +106,10 @@ def tumble_archive_month(request, year, month, content_type=None, template_name=
     ])
     template_name = select_template_name.name
 
+    if 'extra_context' not in kwargs:
+        kwargs['extra_context'] = {}
+    kwargs['extra_context']['content_type'] = content_type
+
     return date_based.archive_month(
         request,
         year = year,
@@ -117,6 +133,10 @@ def tumble_archive_day(request, year, month, day, content_type=None, template_na
         'djumblr/tumbleitem_list.html',
     ])
     template_name = select_template_name.name
+
+    if 'extra_context' not in kwargs:
+        kwargs['extra_context'] = {}
+    kwargs['extra_context']['content_type'] = content_type
 
     return date_based.archive_day(
         request,
@@ -142,6 +162,10 @@ def tumble_archive_object_detail(request, year, month, day, tumblr_id, content_t
         'djumblr/tumbleitem_detail.html',
     ])
     template_name = select_template_name.name
+
+    if 'extra_context' not in kwargs:
+        kwargs['extra_context'] = {}
+    kwargs['extra_context']['content_type'] = content_type
 
     return date_based.object_detail(
         request,
@@ -178,6 +202,7 @@ def tumble_tag_detail(request, slug, content_type=None, template_name=None):
     return render_to_response(template_name, {
         'tag': tag,
         'object_list': queryset,
+        'content_type': content_type,
     }, context_instance=RequestContext(request))
 
 
@@ -199,6 +224,7 @@ def tumble_tag_list(request, content_type=None, template_name=None):
 
     return render_to_response(template_name, {
         'tags': queryset,
+        'content_type': content_type,
     }, context_instance=RequestContext(request))
 
 
