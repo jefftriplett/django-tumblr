@@ -1,0 +1,6 @@
+{% spaceless %}
+{# search template for Photo objects #}
+{{ object.caption|safe }}
+{{ object.photo|safe }}
+{{ object.source|safe }}
+{% endspaceless %}

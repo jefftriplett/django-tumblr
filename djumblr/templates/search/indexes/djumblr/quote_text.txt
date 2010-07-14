@@ -1,0 +1,5 @@
+{% spaceless %}
+{# search template for Quote objects #}
+{{ object.quote_text|safe }}
+{{ object.source|safe }}
+{% endspaceless %}

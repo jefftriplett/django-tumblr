@@ -1,0 +1,4 @@
+{% spaceless %}
+{# search template for TumbleItem objects #}
+{{ object|safe }}
+{% endspaceless %}

@@ -1,0 +1,4 @@
+{% spaceless %}
+{# search template for Audio objects #}
+{{ object.caption|safe }}
+{% endspaceless %}

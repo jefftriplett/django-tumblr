@@ -1,0 +1,5 @@
+{% spaceless %}
+{# search template for Conversation objects #}
+{{ object.title|safe }}
+{{ object.conversation_text|safe }}
+{% endspaceless %}

@@ -1,0 +1,6 @@
+{% spaceless %}
+{# search template for Link objects #}
+{{ object.name|safe }}
+{{ object.url|safe }}
+{{ object.description|safe }}
+{% endspaceless %}

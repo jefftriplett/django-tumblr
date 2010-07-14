@@ -1,0 +1,7 @@
+{% spaceless %}
+{# search template for Video objects #}
+{{ object.title|safe }}
+{{ object.caption|safe }}
+{{ object.embed|safe }}
+{{ object.data|safe }}
+{% endspaceless %}
