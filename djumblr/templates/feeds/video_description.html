@@ -1,0 +1,8 @@
+{% spaceless %}
+{% if obj.embed %}
+{{ obj.embed|safe }}
+{% else %}
+{{ obj.data|safe }}
+{% endif %}
+{{ obj.caption|safe }}
+{% endspaceless %}

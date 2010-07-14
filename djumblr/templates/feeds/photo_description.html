@@ -1,0 +1,7 @@
+{% spaceless %}
+{% if obj.source %}
+<img src="{{ obj.source }}" />
+{% else %}
+<img src="{{ obj.photo }}" />
+{% endif %}
+{% endspaceless %}
