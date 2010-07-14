@@ -1,5 +1,11 @@
 from django.conf.urls.defaults import patterns, url
 from djumblr import views
+from djumblr.feeds import LatestTumbleItemFeed
+
+
+feeds = {
+    'latest': LatestTumbleItemFeed,
+}
 
 
 urlpatterns = patterns('',
@@ -64,6 +70,13 @@ urlpatterns = patterns('',
     url(r'edit/$',
         views.tumble_item_form,
         name='tumble_form'),
+
+    (r'^feeds/latest/$',
+        LatestTumbleItemFeed()),
+
+    (r'^feeds2/(?P<url>.*)/$',
+        'django.contrib.syndication.views.feed',
+        {'feed_dict': feeds}),
 
     url(r'^(?P<content_type>[-\w]+)/$',
         views.tumble_object_list,
