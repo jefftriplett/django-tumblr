@@ -1,6 +1,13 @@
 djumblr: Tumblr for Django
 ==========================
 
+Warning
+-------
+
+Currently django-tumblr is under-going some major changes. It may not be stable and I'm not going
+to guarantee backwards compatibility until it's ready for a release.
+
+
 Instructions
 ------------
 
