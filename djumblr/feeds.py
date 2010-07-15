@@ -14,6 +14,9 @@ class LatestTumbleItemFeed(Feed):
     def items(self):
         return TumbleItem.objects.all().order_by('-pub_date')[:25]
 
+    def item_pubdate(self, item):
+        return item.pub_date
+
 
 class LatestAudioFeed(Feed):
     title = 'Latest audio items'
