@@ -1,4 +1,3 @@
-import datetime
 from haystack import site
 from haystack.indexes import *
 from djumblr.models import Audio, Conversation, Link, Photo, Quote, Regular, Video
