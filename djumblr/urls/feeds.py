@@ -10,27 +10,35 @@ from djumblr.feeds import LatestVideoFeed
 
 
 urlpatterns = patterns('',
-    (r'^latest/$',
-        LatestTumbleItemFeed()),
+    url(r'^latest/$',
+        LatestTumbleItemFeed(),
+        name='djumblr_latest_feed'),
 
-    (r'^latest/audio/$',
-        LatestAudioFeed()),
+    url(r'^latest/audio/$',
+        LatestAudioFeed(),
+        name='djumblr_latest_audio_feed'),
 
-    (r'^latest/conversation/$',
-        LatestConversationFeed()),
+    url(r'^latest/conversation/$',
+        LatestConversationFeed(),
+        name='djumblr_latest_conversation_feed'),
 
-    (r'^latest/link/$',
-        LatestLinkFeed()),
+    url(r'^latest/link/$',
+        LatestLinkFeed(),
+        name='djumblr_latest_link_feed'),
 
-    (r'^latest/photo/$',
-        LatestPhotoFeed()),
+    url(r'^latest/photo/$',
+        LatestPhotoFeed(),
+        name='djumblr_latest_photo_feed'),
 
-    (r'^latest/quote/$',
-        LatestQuoteFeed()),
+    url(r'^latest/quote/$',
+        LatestQuoteFeed(),
+        name='djumblr_latest_quote_feed'),
 
-    (r'^latest/regular/$',
-        LatestRegularFeed()),
+    url(r'^latest/regular/$',
+        LatestRegularFeed(),
+        name='djumblr_latest_regular_feed'),
 
-    (r'^latest/video/$',
-        LatestVideoFeed()),
+    url(r'^latest/video/$',
+        LatestVideoFeed(),
+        name='djumblr_latest_video_feed'),
 )
