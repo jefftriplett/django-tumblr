@@ -1,25 +1,5 @@
 from django.conf.urls.defaults import patterns, url
 from djumblr import views
-from djumblr.feeds import LatestTumbleItemFeed
-from djumblr.feeds import LatestAudioFeed
-from djumblr.feeds import LatestConversationFeed
-from djumblr.feeds import LatestLinkFeed
-from djumblr.feeds import LatestPhotoFeed
-from djumblr.feeds import LatestQuoteFeed
-from djumblr.feeds import LatestRegularFeed
-from djumblr.feeds import LatestVideoFeed
-
-
-feeds = {
-    'latest': LatestTumbleItemFeed,
-    'latest/audio': LatestAudioFeed,
-    'latest/conversation': LatestConversationFeed,
-    'latest/link': LatestLinkFeed,
-    'latest/photo': LatestPhotoFeed,
-    'latest/quote': LatestQuoteFeed,
-    'latest/regular': LatestRegularFeed,
-    'latest/video': LatestVideoFeed,
-}
 
 
 urlpatterns = patterns('',
@@ -84,27 +64,6 @@ urlpatterns = patterns('',
     url(r'edit/$',
         views.tumble_item_form,
         name='tumble_form'),
-
-    # the feeds section will be changed once the feeds2 section works
-    (r'^feeds/latest/$',
-        LatestTumbleItemFeed()),
-    (r'^feeds/latest/audio/$',
-        LatestAudioFeed()),
-    (r'^feeds/latest/conversation/$',
-        LatestConversationFeed()),
-    (r'^feeds/latest/link/$',
-        LatestLinkFeed()),
-    (r'^feeds/latest/photo/$',
-        LatestPhotoFeed()),
-    (r'^feeds/latest/quote/$',
-        LatestQuoteFeed()),
-    (r'^feeds/latest/regular/$',
-        LatestRegularFeed()),
-    (r'^feeds/latest/video/$',
-        LatestVideoFeed()),
-    (r'^feeds2/(?P<url>.*)/$',
-        'django.contrib.syndication.views.feed',
-        {'feed_dict': feeds}),
 
     url(r'^(?P<content_type>[-\w]+)/$',
         views.tumble_object_list,

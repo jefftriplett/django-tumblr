@@ -1,20 +1,21 @@
+from django.contrib.sites.models import Site
 from django.contrib.syndication.views import Feed
+from django.core.urlresolvers import reverse
 from djumblr.models import TumbleItem, Audio, Conversation, Link, Photo, Quote, Regular, Video
 
 
 class LatestTumbleItemFeed(Feed):
-    title = 'Latest tumble items'
-    link = '/tumblr/feeds/latest/'
+    _site = Site.objects.get_current()
+    title = '%s latest tumble items' % (_site.name)
+
+    def link(self):
+        return reverse('djumblr_object_list')
 
     def items(self):
         return TumbleItem.objects.all().order_by('-pub_date')[:25]
 
 
 class LatestAudioFeed(Feed):
-    #data = models.FileField(upload_to='audio/', blank=True)
-    #embed = models.TextField(blank=True)
-    #caption = models.TextField(blank=True)
-
     title = 'Latest audio items'
     link = '/tumblr/feeds/latest/audio/'
     description_template = 'feeds/audio_description.html'
@@ -98,10 +99,6 @@ class LatestRegularFeed(Feed):
 
 
 class LatestVideoFeed(Feed):
-    #embed = models.TextField(blank=True)
-    #data = models.FileField(blank=True, upload_to='videos/')
-    #caption = models.TextField(blank=True)
-
     title = 'Latest video items'
     link = '/tumblr/feeds/latest/video/'
     description_template = 'feeds/video_description.html'
