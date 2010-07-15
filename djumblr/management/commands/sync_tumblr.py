@@ -61,7 +61,7 @@ class Command(BaseCommand):
 
                     # 'Photo' objects.
                     elif tumbl['type'] == "photo":
-                        source = tumbl['photo-url-250']
+                        source = tumbl['photo-url-500']
                         caption = tumbl.get('photo-caption', '')
                         m = Photo(tumblr_id=tumblr_id, pub_date=pub_date, user=user, format=format, source=source, caption=caption)
                         m.save()
