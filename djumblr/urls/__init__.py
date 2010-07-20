@@ -20,7 +20,7 @@ urlpatterns = patterns('',
         name='djumblr_content_type_archive_year'),
 
     url(r'^(?P<content_type>[-\w]+)/tags/(?P<tag_slug>(.*))/$',
-        views.tumble_tag_detail,
+        views.tumble_object_list,
         name='djumblr_content_type_tag_detail',
     ),
 
@@ -50,7 +50,7 @@ urlpatterns = patterns('',
         name='djumblr_archive_year'),
 
     url(r'^tags/(?P<tag_slug>(.*))/$',
-        views.tumble_tag_detail,
+        views.tumble_object_list,
         name='djumblr_tag_detail'),
 
     url(r'^tags/$',

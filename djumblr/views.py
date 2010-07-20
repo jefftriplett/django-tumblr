@@ -11,8 +11,17 @@ from djumblr.models import Audio, Conversation, Link, Photo, Quote, Regular, Vid
 from djumblr.forms import AudioForm, ConversationForm, LinkForm, PhotoForm, QuoteForm, RegularForm, VideoForm
 
 
-def tumble_object_list(request, page=0, content_type=None, template_name=None, **kwargs):
+def tumble_object_list(request, page=0, content_type=None, tag_slug=None, template_name=None, **kwargs):
     queryset = TumbleItem.objects.all()
+    tag = None
+
+    if tag_slug:
+        try:
+            tag = Tag.objects.get(slug=tag_slug)
+        except Tag.DoesNotExist:
+            raise Http404
+
+        queryset = queryset.filter(tags__in=[tag])
 
     if content_type:
         queryset = queryset.filter(content_type__name=content_type)
@@ -27,6 +36,7 @@ def tumble_object_list(request, page=0, content_type=None, template_name=None, *
     if 'extra_context' not in kwargs:
         kwargs['extra_context'] = {}
     kwargs['extra_context']['content_type'] = content_type
+    kwargs['extra_context']['tag'] = tag
 
     return list_detail.object_list(
         request,
@@ -179,31 +189,6 @@ def tumble_archive_object_detail(request, year, month, day, tumblr_id, content_t
         template_name = template_name,
         **kwargs
     )
-
-
-def tumble_tag_detail(request, tag_slug, content_type=None, template_name=None):
-    try:
-        tag = Tag.objects.get(slug=tag_slug)
-    except Tag.DoesNotExist:
-        raise Http404
-
-    queryset = TumbleItem.objects.filter(tags__in=[tag])
-
-    if content_type:
-        queryset = queryset.filter(pk__in=TaggedItem.objects.filter(content_type__name=content_type))
-
-    select_template_name = select_template([
-        template_name or '',
-        'djumblr/%s_tag_detail.html' % (content_type),
-        'djumblr/tag_detail.html',
-    ])
-    template_name = select_template_name.name
-
-    return render_to_response(template_name, {
-        'tag': tag,
-        'object_list': queryset,
-        'content_type': content_type,
-    }, context_instance=RequestContext(request))
 
 
 def tumble_tag_list(request, content_type=None, template_name=None):
