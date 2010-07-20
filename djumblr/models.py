@@ -67,7 +67,6 @@ class Audio(TumbleItem):
     caption = models.TextField(blank=True)
 
     class Meta:
-        ordering = ['-pub_date']
         verbose_name_plural = "Audio"
 
     def __unicode__(self):
@@ -144,7 +143,6 @@ class Regular(TumbleItem):
     body = models.TextField()
 
     class Meta:
-        ordering = ['-pub_date']
         verbose_name_plural = "Regular"
 
     def __unicode__(self):
@@ -161,7 +159,10 @@ class Video(TumbleItem):
     caption = models.TextField(blank=True)
 
     def __unicode__(self):
-        return u"Video"
+        if self.title:
+            return u"%s (video)" % self.title
+        else:
+            return u"Video"
 
 
 tumbleitem_saved.connect(tumbleitem_saved_callback, sender=TumbleItem)
