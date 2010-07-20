@@ -181,9 +181,9 @@ def tumble_archive_object_detail(request, year, month, day, tumblr_id, content_t
     )
 
 
-def tumble_tag_detail(request, slug, content_type=None, template_name=None):
+def tumble_tag_detail(request, tag_slug, content_type=None, template_name=None):
     try:
-        tag = Tag.objects.get(slug=slug)
+        tag = Tag.objects.get(slug=tag_slug)
     except Tag.DoesNotExist:
         raise Http404
 
